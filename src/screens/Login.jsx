@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope -- Unaware of jsxImportSource */
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   FormControl,
   InputLabel,
@@ -9,8 +9,10 @@ import {
   Typography,
   Container,
   Button,
-} from '@mui/material';
-import { css } from '@emotion/react';
+} from "@mui/material";
+import { css } from "@emotion/react";
+import useUser from "../hooks/user";
+import axios from "axios";
 
 const style = {
   wrapper: css`
@@ -47,40 +49,71 @@ const style = {
 };
 
 function LoginScreen() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [disable, setDisable] = useState(false);
+
+  const user = useUser();
 
   return (
     <Container css={style.wrapper}>
-      <Container css={style.container} maxWidth='sm'>
-        <Typography variant='h4'>Login</Typography>
+      <Container css={style.container} maxWidth="sm">
+        <Typography variant="h4">Login</Typography>
         <FormControl
           css={style.control}
-          sx={{ width: '100%', marginBottom: 10 }}
+          sx={{ width: "100%", marginBottom: 10 }}
         >
-          <InputLabel htmlFor='my-input'>Email address</InputLabel>
+          <InputLabel htmlFor="my-input">Email address</InputLabel>
           <Input
-            aria-describedby='email-ht'
+            aria-describedby="email-ht"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            disabled={disable}
           />
-          <FormHelperText id='email-ht'>
+          <FormHelperText id="email-ht">
             We'll never share your email.
           </FormHelperText>
         </FormControl>
-        <FormControl css={style.control} sx={{ width: '100%' }}>
-          <InputLabel htmlFor='my-input'>Password</InputLabel>
+        <FormControl css={style.control} sx={{ width: "100%" }}>
+          <InputLabel htmlFor="my-input">Password</InputLabel>
           <Input
-            aria-describedby='password-ht'
+            aria-describedby="password-ht"
+            type="password"
             value={password}
-            type='password'
             onChange={(e) => setPassword(e.target.value)}
+            disabled={disable}
           />
-          <FormHelperText id='password-ht'>
+          <FormHelperText id="password-ht">
             Enter your company account Password
           </FormHelperText>
         </FormControl>
-        <Button css={style.btn} variant='outlined'>
+        <Button
+          css={style.btn}
+          variant="outlined"
+          onClick={async () => {
+            if (email && password) {
+              setDisable(true);
+              try {
+                await user.actions.login({ email, password });
+                setDisable(false);
+              } catch (err) {
+                if (axios.isAxiosError(err)) {
+                  let data = err.response.data;
+                  if ("non_field_errors" in data) {
+                    console.log("haha");
+                    // setError(data["non_field_errors"][0]);
+                    // setErrorVisible(true);
+                  }
+                }
+              }
+            } else {
+              console.log("hahaahahaha");
+              // setError("Invalid Email or Password");
+              // setErrorVisible(true);
+            }
+          }}
+        >
           Login
         </Button>
         {/* <Button css={style.btn} variant='outlined'>
