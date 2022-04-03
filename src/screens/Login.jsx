@@ -23,7 +23,7 @@ const style = {
   container: css`
     padding: 30px !important;
     height: 60vh;
-    min-height: 500px;
+    min-height: 400px;
     border-radius: 0.5rem;
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
@@ -83,9 +83,9 @@ function LoginScreen() {
         <Button css={style.btn} variant='outlined'>
           Login
         </Button>
-        <Button css={style.btn} variant='outlined'>
+        {/* <Button css={style.btn} variant='outlined'>
           SignUp
-        </Button>
+        </Button> */}
       </Container>
     </Container>
   );

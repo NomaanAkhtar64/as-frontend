@@ -1,13 +1,12 @@
-import React from 'react';
-import * as Screens from './screens';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import LoginScreen from "./screens/Login";
 
 function App() {
   return (
-    <>
-      <Screens.Login>
-
-      </Screens.Login>
-    </>
+    <Routes>
+      <Route exact path="/login" element={<LoginScreen />} />
+    </Routes>
   );
 }
 
