@@ -8,13 +8,13 @@ import {
   FormHelperText,
   Typography,
   Container,
-  Button,
 } from '@mui/material';
 import { css } from '@emotion/react';
 import useUser from '../hooks/user';
 import axios from 'axios';
 import { EMAIL_REGEX } from '../const';
 import Loading from '../components/Loading';
+import SubmitButton from '../layout/generic/SubmitButton';
 
 const style = {
   wrapper: css`
@@ -44,11 +44,6 @@ const style = {
   `,
   control: css`
     margin: 10px 0px;
-  `,
-  btn: css`
-    display: block;
-    width: 100%;
-    margin-bottom: auto;
   `,
   error: css`
     color: red;
@@ -161,9 +156,7 @@ function LoginScreen() {
           <Typography variant='subtitle1' css={style.error}>
             {error}
           </Typography>
-          <Button css={style.btn} variant='outlined' type='submit'>
-            Login
-          </Button>
+          <SubmitButton>Login</SubmitButton>
         </Container>
       </Container>
     </Container>

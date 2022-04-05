@@ -21,7 +21,7 @@ const drawerWidth = 240;
 
 const titles = {
   '/': 'ADMIN PANEL',
-  '/config': 'CONFIGURE SYSTEM',
+  // '/config': 'CONFIGURE SYSTEM',
   '/employees': 'VIEW EMPLOYEE DATA',
 };
 
@@ -66,12 +66,12 @@ function AdminLayout({ children, onLogout }) {
             </ListItemIcon>
             <ListItemText primary='Admin' />
           </ListItem>
-          <ListItem button onClick={() => navigate('/config')}>
+          {/* <ListItem button onClick={() => navigate('/config')}>
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
             <ListItemText primary='Configuration' />
-          </ListItem>
+          </ListItem> */}
         </List>
         <Divider />
         <List>
