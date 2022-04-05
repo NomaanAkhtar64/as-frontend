@@ -1,14 +1,14 @@
-import axios from "axios";
+import axios from 'axios';
 import React, {
   createContext,
   useCallback,
   useContext,
-  useLayoutEffect,
+  useEffect,
   useState,
-} from "react";
+} from 'react';
 
-import Loading from "../Components/Loading";
-import { API_URL } from "../const";
+import Loading from '../components/Loading';
+import { API_URL } from '../const';
 
 const UserContext = createContext(null);
 
@@ -22,84 +22,64 @@ export const UserProvider = ({ children }) => {
   );
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-
   const logout = useCallback(() => {
-    // console.log("logout", localStorage.getItem("token"));
     setToken(null);
     setIsLogin(false);
     setUser(null);
     setLoading(false);
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
+  }, []);
+  const login = useCallback((ld) => {
+    setLoading(true);
+    return axios
+      .post(`${API_URL}/rest-auth/login/`, ld)
+      .then(async (res) => {
+        setToken(res.data.key);
+        localStorage.setItem('token', res.data.key);
+      })
+      .catch((err) => {
+        setLoading(false);
+        throw err;
+      });
   }, []);
 
-  const fetchUser = useCallback(
-    (options) => {
-      return new Promise((resolve, reject) => {
-        const userURL = `${API_URL}/accounts/user/`;
-        const userRequest = axios.get(userURL, options);
+  useEffect(() => {
+    const cancelToken = axios.CancelToken.source();
 
-        const request = [userRequest];
-
-        axios
-          .all(request)
-          .then(
-            axios.spread((...responses) => {
-              setUser(responses[0].data);
-              setIsLogin(true);
-              setLoading(false);
-              resolve(123);
-            })
-          )
-          .catch((err) => {
-            console.log(err);
-            if (axios.isAxiosError(err)) {
-              logout();
-              resolve(123);
-            }
-            reject(err);
-          });
-      });
-    },
-    [logout]
-  );
-
-  const login = useCallback(
-    (ld) => {
+    if (token !== null && user === null) {
       setLoading(true);
-      return axios
-        .post(`${API_URL}/rest-auth/login/`, ld)
-        .then(async (res) => {
-          setToken(res.data.key);
-          localStorage.setItem("token", res.data.key);
-
-          const options = {
-            headers: { Authorization: `Token ${res.data.key}` },
-          };
-
-          await fetchUser(options);
+      console.log('ATTEMPTING FETCH USER');
+      axios
+        .get(`${API_URL}/rest-auth/user/`, {
+          headers: { Authorization: `Token ${token}` },
+          cancelToken: cancelToken.token,
+        })
+        .then((res) => {
+          setUser(res.data);
+          setIsLogin(true);
+          setLoading(false);
           return;
         })
         .catch((err) => {
-          setLoading(false);
-          throw err;
+          if (axios.isAxiosError(err)) {
+            logout();
+            return;
+          }
+          console.log(err);
         });
-    },
-    [fetchUser]
-  );
-
-  useLayoutEffect(() => {
-    if (localStorage["token"] !== undefined) {
-      const options = {
-        headers: { Authorization: `Token ${localStorage.getItem("token")}` },
-      };
-      const getUser = async () => {
-        setLoading(true);
-        await fetchUser(options);
-        setLoading(false);
-      };
-      getUser();
     }
-  }, [fetchUser]);
+    return () => cancelToken.cancel();
+  }, [token, user, logout]);
+
+  function render() {
+    if (isLogin && loading) return <Loading />;
+
+    if (user === null && isLogin === true) {
+      return <Loading />;
+    }
+
+    return children;
+  }
 
   return (
     <UserContext.Provider
@@ -116,7 +96,7 @@ export const UserProvider = ({ children }) => {
         },
       }}
     >
-      {loading ? <Loading /> : children}
+      {render()}
     </UserContext.Provider>
   );
 };
