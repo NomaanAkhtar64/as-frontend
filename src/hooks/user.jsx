@@ -22,6 +22,7 @@ export const UserProvider = ({ children }) => {
   );
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+
   const logout = useCallback(() => {
     setToken(null);
     setIsLogin(false);
@@ -29,6 +30,7 @@ export const UserProvider = ({ children }) => {
     setLoading(false);
     localStorage.removeItem('token');
   }, []);
+
   const login = useCallback((ld) => {
     setLoading(true);
     return axios
@@ -48,7 +50,6 @@ export const UserProvider = ({ children }) => {
 
     if (token !== null && user === null) {
       setLoading(true);
-      console.log('ATTEMPTING FETCH USER');
       axios
         .get(`${API_URL}/rest-auth/user/`, {
           headers: { Authorization: `Token ${token}` },

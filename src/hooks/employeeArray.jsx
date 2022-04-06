@@ -19,5 +19,4 @@ export function EmployeeArrayProvider({ children }) {
 }
 
 const useEmployeeArray = () => useContext(Context);
-
 export { useEmployeeArray };

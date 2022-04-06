@@ -1,11 +1,15 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Home } from '../screens/Employee';
+import { EmployeeProvider } from '../hooks/employee';
+import { Home, Attendance } from '../screens/Employee';
 function EmployeeRouter() {
   return (
-    <Routes>
-      <Route path='/' element={<Home />} />
-    </Routes>
+    <EmployeeProvider>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/attendance' element={<Attendance />} />
+      </Routes>
+    </EmployeeProvider>
   );
 }
 
