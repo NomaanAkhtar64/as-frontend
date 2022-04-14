@@ -15,6 +15,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import BadgeIcon from '@mui/icons-material/Badge';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -23,6 +24,7 @@ const titles = {
   '/': 'ADMIN PANEL',
   '/employees': 'VIEW EMPLOYEE DATA',
   '/manual-attendance': 'Manually Mark Employee Attendance',
+  '/registrations': 'Approve Employee Registration Requests',
 };
 
 function AdminLayout({ children, onLogout }) {
@@ -75,15 +77,21 @@ function AdminLayout({ children, onLogout }) {
             </ListItemIcon>
             <ListItemText primary='Employees' />
           </ListItem>
+          <ListItem button onClick={() => navigate('/registrations')}>
+            <ListItemIcon>
+              <AppRegistrationIcon />
+            </ListItemIcon>
+            <ListItemText primary='Registrations' />
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
           <ListItem button onClick={() => navigate('/manual-attendance')}>
             <ListItemIcon>
               <BadgeIcon />
             </ListItemIcon>
             <ListItemText primary='Manual Attendance' />
           </ListItem>
-        </List>
-        <Divider />
-        <List>
           <ListItem
             button
             onClick={() => {

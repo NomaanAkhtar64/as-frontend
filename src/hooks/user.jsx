@@ -45,6 +45,19 @@ export const UserProvider = ({ children }) => {
       });
   }, []);
 
+  const signup = useCallback((data) => {
+    setLoading(true);
+    return axios
+      .post(`${API_URL}/api/employee_signup/`, data)
+      .then((res) => {
+        console.log('EMPLOYEE SIGNUP REQUEST SEND');
+      })
+      .catch((err) => {
+        setLoading(false);
+        throw err;
+      });
+  }, []);
+
   useEffect(() => {
     const cancelToken = axios.CancelToken.source();
 
@@ -90,6 +103,7 @@ export const UserProvider = ({ children }) => {
         actions: {
           login,
           logout,
+          signup,
         },
         state: {
           user,

@@ -15,6 +15,7 @@ import axios from 'axios';
 import { EMAIL_REGEX } from '../const';
 import Loading from '../components/Loading';
 import SubmitButton from '../layout/generic/SubmitButton';
+import { Link } from 'react-router-dom';
 
 const style = {
   wrapper: css`
@@ -29,14 +30,14 @@ const style = {
   `,
   container: css`
     padding: 0px !important;
-    height: 60vh;
-    min-height: 400px;
+    height: fit-content;
+    min-height: 600px;
     border-radius: 0.5rem;
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   `,
   padder: css`
-    padding: 30px !important;
+    padding: 30px 60px !important;
     width: 100%;
     height: 100%;
     display: flex;
@@ -85,7 +86,9 @@ function LoginScreen() {
         if ('non_field_errors' in data) {
           let msg = data['non_field_errors'][0];
           if (msg === 'Unable to log in with provided credentials.') {
-            setError('Email or Password are incorrect');
+            setError(
+              'Email or Password are incorrect or Account has not been approved'
+            );
           } else {
             setError(msg);
           }
@@ -153,6 +156,9 @@ function LoginScreen() {
             {error}
           </Typography>
           <SubmitButton>Login</SubmitButton>
+          <FormHelperText>
+            Are you a New Employee? Sign Up <Link to='/signup'>Here</Link>
+          </FormHelperText>
         </Container>
       </Container>
     </Container>
