@@ -110,11 +110,7 @@ function LoginScreen() {
           <Typography variant='h4' css={style.typography}>
             Login
           </Typography>
-          <FormControl
-            css={style.control}
-            sx={{ width: '100%', marginBottom: 10 }}
-            error={emailError !== null}
-          >
+          <FormControl css={style.control} error={emailError !== null}>
             <InputLabel htmlFor='my-input'>Email address</InputLabel>
             <Input
               aria-describedby='email-ht'

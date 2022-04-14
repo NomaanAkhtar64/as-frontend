@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { EmployeeProvider } from '../hooks/employee';
+import { EmployeeProvider } from '../hooks/Employee/employee';
 import { Home, Attendance } from '../screens/Employee';
 function EmployeeRouter() {
   return (

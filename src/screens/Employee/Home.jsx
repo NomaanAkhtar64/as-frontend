@@ -3,7 +3,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
-import { useEmployee } from '../../hooks/employee';
 import Table from '@mui/material/Table';
 import CircularProgress from '@mui/material/CircularProgress';
 import TableBody from '@mui/material/TableBody';
@@ -11,6 +10,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useEmployee } from '../../hooks/Employee/employee';
 
 const style = {
   cont: css`

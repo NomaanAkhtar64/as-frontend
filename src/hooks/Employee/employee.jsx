@@ -6,8 +6,8 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { API_URL } from '../const';
-import useUser from './user';
+import { API_URL } from '../../const';
+import useUser from '../user';
 
 const Context = createContext(null);
 
@@ -37,14 +37,14 @@ export function EmployeeProvider({ children }) {
       });
 
     return () => cancelToken.cancel();
-  }, []);
+  }, [token, user]);
 
   const refetch = useCallback(() => {
     setReloadTrigger(!reloadTrigger);
   }, [reloadTrigger]);
 
   return (
-    <Context.Provider value={{ data: employee, loading, action: refetch }}>
+    <Context.Provider value={{ data: employee, loading, action: { refetch } }}>
       {children}
     </Context.Provider>
   );

@@ -12,7 +12,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import SettingsIcon from '@mui/icons-material/Settings';
+import BadgeIcon from '@mui/icons-material/Badge';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -21,8 +21,8 @@ const drawerWidth = 240;
 
 const titles = {
   '/': 'ADMIN PANEL',
-  // '/config': 'CONFIGURE SYSTEM',
   '/employees': 'VIEW EMPLOYEE DATA',
+  '/manual-attendance': 'Manually Mark Employee Attendance',
 };
 
 function AdminLayout({ children, onLogout }) {
@@ -66,12 +66,6 @@ function AdminLayout({ children, onLogout }) {
             </ListItemIcon>
             <ListItemText primary='Admin' />
           </ListItem>
-          {/* <ListItem button onClick={() => navigate('/config')}>
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary='Configuration' />
-          </ListItem> */}
         </List>
         <Divider />
         <List>
@@ -80,6 +74,12 @@ function AdminLayout({ children, onLogout }) {
               <PeopleAltIcon />
             </ListItemIcon>
             <ListItemText primary='Employees' />
+          </ListItem>
+          <ListItem button onClick={() => navigate('/manual-attendance')}>
+            <ListItemIcon>
+              <BadgeIcon />
+            </ListItemIcon>
+            <ListItemText primary='Manual Attendance' />
           </ListItem>
         </List>
         <Divider />
