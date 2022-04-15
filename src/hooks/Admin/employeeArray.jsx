@@ -1,26 +1,16 @@
 import axios from 'axios';
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  useCallback,
-} from 'react';
+import React from 'react';
 import { API_URL } from '../../const';
 import useUser from '../user';
 
-const Context = createContext(null);
-
-export function EmployeeArrayProvider({ children }) {
-  const [employees, setEmployees] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [reloadTrigger, setReloadTrigger] = useState(false);
-
+export function useEmployeeArray() {
+  const [data, setData] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
   const {
     state: { token },
   } = useUser();
 
-  useEffect(() => {
+  React.useEffect(() => {
     const cancelToken = axios.CancelToken.source();
     setLoading(true);
     axios
@@ -29,7 +19,7 @@ export function EmployeeArrayProvider({ children }) {
         cancelToken: cancelToken.token,
       })
       .then((res) => {
-        setEmployees(res.data);
+        setData(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -40,18 +30,5 @@ export function EmployeeArrayProvider({ children }) {
     return () => cancelToken.cancel();
   }, [token]);
 
-  const refetch = useCallback(() => {
-    setReloadTrigger(!reloadTrigger);
-  }, [reloadTrigger]);
-
-  return (
-    <Context.Provider
-      value={{ data: employees, actions: { refetch }, loading }}
-    >
-      {children}
-    </Context.Provider>
-  );
+  return { loading, data };
 }
-
-const useEmployeeArray = () => useContext(Context);
-export { useEmployeeArray };

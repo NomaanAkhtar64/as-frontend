@@ -8,6 +8,7 @@ import {
   FormHelperText,
   Typography,
   Container,
+  Grid,
 } from '@mui/material';
 import { css } from '@emotion/react';
 import useUser from '../hooks/user';
@@ -16,6 +17,8 @@ import { EMAIL_REGEX } from '../const';
 import Loading from '../components/Loading';
 import SubmitButton from '../layout/generic/SubmitButton';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
+import DateInput from '../components/DateInput';
 
 const style = {
   wrapper: css`
@@ -60,6 +63,8 @@ function SignUpScreen() {
   const [firstName, setFirstName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
   const [device, setDevice] = React.useState('');
+  const [contact, setContact] = React.useState('');
+  const [dob, setDOB] = React.useState({ d: '', m: '', y: '' });
 
   const [disable, setDisable] = React.useState(false);
   const [error, setError] = React.useState(null);
@@ -69,6 +74,8 @@ function SignUpScreen() {
   const [lastNameError, setLastNameError] = React.useState(null);
   const [deviceError, setDeviceError] = React.useState(null);
   const [confirmPasswordError, setConfirmPasswordError] = React.useState(null);
+  const [contactError, setContactError] = React.useState(null);
+  const [dobError, setDOBError] = React.useState(null);
 
   const user = useUser();
   const navigate = useNavigate();
@@ -87,6 +94,8 @@ function SignUpScreen() {
     if (!confirmPassword)
       setConfirmPasswordError('Password Confirmation is Required');
     if (!device) setDeviceError('Brand Of Device is Required');
+    if (!contact) setContactError('Contact Number is Required');
+    if (!dob.d || !dob.m || !dob.y) setDOBError('Date Of Birth is required!');
 
     if (
       !email ||
@@ -94,6 +103,10 @@ function SignUpScreen() {
       !firstName ||
       !lastName ||
       !confirmPassword ||
+      !contact ||
+      !dob.d ||
+      !dob.m ||
+      !dob.y ||
       !device
     )
       hasError = true;
@@ -125,13 +138,16 @@ function SignUpScreen() {
         device,
         first_name: firstName,
         last_name: lastName,
+        date_of_birth: `${dob.y}-${dob.m}-${dob.d}`,
+        contact,
       });
       navigate('/signup/success');
       setDisable(false);
     } catch (err) {
       if (axios.isAxiosError(err)) {
         let data = err.response.data;
-        setError(data);
+        console.log(data);
+        setError('SERVER ERROR');
         setDisable(false);
       }
     }
@@ -150,34 +166,52 @@ function SignUpScreen() {
           <Typography variant='h4' css={style.typography}>
             Registration
           </Typography>
-          <FormControl css={style.control} error={firstNameError !== null}>
-            <InputLabel htmlFor='first-name'>First Name</InputLabel>
-            <Input
-              aria-describedby='first-name'
-              type='text'
-              value={firstName}
-              onChange={(e) => {
-                setFirstName(e.target.value);
-                setFirstNameError(null);
-              }}
-              disabled={disable}
-            />
-            <FormHelperText>{firstNameError && firstNameError}</FormHelperText>
-          </FormControl>
-          <FormControl css={style.control} error={lastNameError !== null}>
-            <InputLabel htmlFor='last-name'>Last Name</InputLabel>
-            <Input
-              aria-describedby='last-name'
-              type='text'
-              value={lastName}
-              onChange={(e) => {
-                setLastName(e.target.value);
-                setLastNameError(null);
-              }}
-              disabled={disable}
-            />
-            <FormHelperText>{lastNameError && lastNameError}</FormHelperText>
-          </FormControl>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={6}>
+              <FormControl
+                css={style.control}
+                error={firstNameError !== null}
+                fullWidth
+              >
+                <InputLabel htmlFor='first-name'>First Name</InputLabel>
+                <Input
+                  aria-describedby='first-name'
+                  type='text'
+                  value={firstName}
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
+                    setFirstNameError(null);
+                  }}
+                  disabled={disable}
+                />
+                <FormHelperText>
+                  {firstNameError && firstNameError}
+                </FormHelperText>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormControl
+                css={style.control}
+                error={lastNameError !== null}
+                fullWidth
+              >
+                <InputLabel htmlFor='last-name'>Last Name</InputLabel>
+                <Input
+                  aria-describedby='last-name'
+                  type='text'
+                  value={lastName}
+                  onChange={(e) => {
+                    setLastName(e.target.value);
+                    setLastNameError(null);
+                  }}
+                  disabled={disable}
+                />
+                <FormHelperText>
+                  {lastNameError && lastNameError}
+                </FormHelperText>
+              </FormControl>
+            </Grid>
+          </Grid>
 
           <FormControl css={style.control} error={emailError !== null}>
             <InputLabel htmlFor='email-ht'>Email address</InputLabel>
@@ -193,6 +227,16 @@ function SignUpScreen() {
             />
             <FormHelperText>{emailError && emailError}</FormHelperText>
           </FormControl>
+
+          <DateInput
+            label='Date Of Birth'
+            value={dob}
+            onUpdate={(v) => setDOB(v)}
+            disable={disable}
+            err={dobError}
+            onError={(err) => setDOBError(err)}
+          />
+
           <FormControl css={style.control} error={deviceError !== null}>
             <InputLabel htmlFor='device'>Brand Of Device</InputLabel>
             <Input
@@ -206,6 +250,21 @@ function SignUpScreen() {
               disabled={disable}
             />
             <FormHelperText>{deviceError && deviceError}</FormHelperText>
+          </FormControl>
+          <FormControl css={style.control} error={contactError !== null}>
+            <InputLabel htmlFor='contact'>Contact Number</InputLabel>
+            <Input
+              aria-describedby='contact'
+              type='text'
+              value={contact}
+              onChange={(e) => {
+                setContact(e.target.value);
+                setContactError(null);
+              }}
+              placeholder='+92 321 1234567'
+              disabled={disable}
+            />
+            <FormHelperText>{contactError && contactError}</FormHelperText>
           </FormControl>
 
           <FormControl
@@ -250,6 +309,9 @@ function SignUpScreen() {
             {error}
           </Typography>
           <SubmitButton>Sign Up</SubmitButton>
+          <FormHelperText>
+            Already Have an account? Login in <Link to='/login'>Here</Link>
+          </FormHelperText>
         </Container>
       </Container>
     </Container>
