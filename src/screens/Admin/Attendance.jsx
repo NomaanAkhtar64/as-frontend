@@ -18,7 +18,7 @@ import Button from '@mui/material/Button';
 import { useParams } from 'react-router';
 import format from 'date-fns/format';
 import { useEmployeeAttendance } from '../../hooks/dual/useEmployeeAttendance';
-import { Link } from 'react-router-dom';
+import { API_URL } from '../../const';
 
 const style = {
   table: css`
@@ -56,7 +56,7 @@ function AttendanceScreen() {
         >
           <MenuItem value='7days'>Last 7 Days</MenuItem>
           <MenuItem value='Month'>By Month</MenuItem>
-          {/* <MenuItem value='Year'>By Year</MenuItem> */}
+          <MenuItem value='Year'>By Year</MenuItem>
         </Select>
       </FormControl>
       <br />
@@ -109,9 +109,14 @@ function AttendanceScreen() {
                       </TableCell>
                       <TableCell>{atd.hours_worked}</TableCell>
                       <TableCell>
-                        <Link to='#'>
+                        <a
+                          href={`${API_URL}/api/report/${id}/${atd.year}/${atd.month}/`}
+                          target='_blank'
+                          download={`report-${atd.month}-${atd.year}`}
+                          rel='noopener noreferrer'
+                        >
                           <Button>Download</Button>
-                        </Link>
+                        </a>
                       </TableCell>
                     </TableRow>
                   )}
@@ -120,9 +125,14 @@ function AttendanceScreen() {
                       <TableCell>{atd.year}</TableCell>
                       <TableCell>{atd.hours_worked}</TableCell>
                       <TableCell>
-                        <Link to='#'>
+                        <a
+                          href={`${API_URL}/api/report/${id}/${atd.year}/`}
+                          target='_blank'
+                          download={`report-${atd.month}-${atd.year}`}
+                          rel='noopener noreferrer'
+                        >
                           <Button>Download</Button>
-                        </Link>
+                        </a>
                       </TableCell>
                     </TableRow>
                   )}

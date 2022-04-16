@@ -1,3 +1,4 @@
+import { CircularProgress } from '@mui/material';
 import axios from 'axios';
 import React, {
   createContext,
@@ -17,7 +18,6 @@ export function EmployeeProvider({ children }) {
   const {
     state: { token, user },
   } = useUser();
-  const [reloadTrigger, setReloadTrigger] = useState(false);
 
   useEffect(() => {
     const cancelToken = axios.CancelToken.source();
@@ -39,13 +39,9 @@ export function EmployeeProvider({ children }) {
     return () => cancelToken.cancel();
   }, [token, user]);
 
-  const refetch = useCallback(() => {
-    setReloadTrigger(!reloadTrigger);
-  }, [reloadTrigger]);
-
   return (
-    <Context.Provider value={{ data: employee, loading, action: { refetch } }}>
-      {children}
+    <Context.Provider value={{ data: employee, loading }}>
+      {!loading && employee ? children : <CircularProgress />}
     </Context.Provider>
   );
 }
