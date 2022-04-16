@@ -13,28 +13,32 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
 import Paper from '@mui/material/Paper';
+import CircularProgress from '@mui/material/CircularProgress';
+import Button from '@mui/material/Button';
 import { useParams } from 'react-router';
 import format from 'date-fns/format';
 import { useEmployeeAttendance } from '../../hooks/dual/useEmployeeAttendance';
-import { CircularProgress } from '@mui/material';
-import useUser from '../../hooks/user';
+import { Link } from 'react-router-dom';
+
 const style = {
   table: css`
     margin: 0px auto;
     justify-content: center;
+    & td,
+    th {
+      text-align: center;
+    }
   `,
 };
 
 function AttendanceScreen() {
-  const [viewMode, setViewMode] = React.useState('7days');
+  const [viewMode, setViewMode] = React.useState('Month');
   const { id } = useParams();
-  const { data: attendanceArray, loading } = useEmployeeAttendance(
-    viewMode,
-    id
-  );
   const {
-    state: { user },
-  } = useUser();
+    data: attendanceArray,
+    loading,
+    actions,
+  } = useEmployeeAttendance(viewMode, id);
 
   return (
     <>
@@ -46,12 +50,13 @@ function AttendanceScreen() {
           value={viewMode}
           label='View Attendance'
           onChange={(e) => {
+            actions.load();
             setViewMode(e.target.value);
           }}
         >
           <MenuItem value='7days'>Last 7 Days</MenuItem>
           <MenuItem value='Month'>By Month</MenuItem>
-          <MenuItem value='Year'>By Year</MenuItem>
+          {/* <MenuItem value='Year'>By Year</MenuItem> */}
         </Select>
       </FormControl>
       <br />
@@ -61,25 +66,67 @@ function AttendanceScreen() {
         <TableContainer css={style.table} component={Paper}>
           <Table sx={{ minWidth: 400 }} aria-label='simple table'>
             <TableHead>
-              <TableRow>
-                <TableCell>S. No</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell>Check In</TableCell>
-                <TableCell>Check Out</TableCell>
-                <TableCell>Status</TableCell>
-              </TableRow>
+              {viewMode === '7days' && (
+                <TableRow>
+                  <TableCell>Date</TableCell>
+                  <TableCell>Check In</TableCell>
+                  <TableCell>Check Out</TableCell>
+                  <TableCell>Status</TableCell>
+                </TableRow>
+              )}
+              {viewMode === 'Month' && (
+                <TableRow>
+                  <TableCell>Month</TableCell>
+                  <TableCell>Hours Worked</TableCell>
+                  <TableCell>Report</TableCell>
+                </TableRow>
+              )}
+              {viewMode === 'Year' && (
+                <TableRow>
+                  <TableCell>Year</TableCell>
+                  <TableCell>Hours Worked</TableCell>
+                  <TableCell>Report</TableCell>
+                </TableRow>
+              )}
             </TableHead>
             <TableBody>
               {attendanceArray.map((atd, idx) => (
-                <TableRow key={idx}>
-                  <TableCell>{idx + 1}</TableCell>
-                  <TableCell>
-                    {format(Date.parse(atd.date), 'do MMM yyyy')}
-                  </TableCell>
-                  <TableCell>{atd.checked_in}</TableCell>
-                  <TableCell>{atd.checked_out}</TableCell>
-                  <TableCell>{atd.status}</TableCell>
-                </TableRow>
+                <React.Fragment key={idx}>
+                  {viewMode === '7days' && (
+                    <TableRow>
+                      <TableCell>
+                        {format(Date.parse(atd.date), 'do MMM yyyy')}
+                      </TableCell>
+                      <TableCell>{atd.checked_in.substr(0, 5)}</TableCell>
+                      <TableCell>{atd.checked_out.substr(0, 5)}</TableCell>
+                      <TableCell>{atd.status}</TableCell>
+                    </TableRow>
+                  )}
+                  {viewMode === 'Month' && (
+                    <TableRow>
+                      <TableCell>
+                        {format(new Date(atd.year, atd.month), 'MMM yyyy')}
+                      </TableCell>
+                      <TableCell>{atd.hours_worked}</TableCell>
+                      <TableCell>
+                        <Link to='#'>
+                          <Button>Download</Button>
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                  )}
+                  {viewMode === 'Year' && (
+                    <TableRow>
+                      <TableCell>{atd.year}</TableCell>
+                      <TableCell>{atd.hours_worked}</TableCell>
+                      <TableCell>
+                        <Link to='#'>
+                          <Button>Download</Button>
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </React.Fragment>
               ))}
             </TableBody>
           </Table>

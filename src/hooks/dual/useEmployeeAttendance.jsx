@@ -34,6 +34,8 @@ export function useEmployeeAttendance(viewMode, id = undefined) {
       });
     return () => cancelToken.cancel();
   }, [id, viewMode, token]);
-
-  return { data, loading };
+  const load = React.useCallback(() => {
+    setLoading(true);
+  }, []);
+  return { data, loading, actions: { load } };
 }
