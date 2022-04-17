@@ -54,10 +54,6 @@ function HomeScreen() {
               <TableCell>{employee.leaving_date}</TableCell>
             </TableRow>
           )}
-          <TableRow>
-            <TableCell>Hours Worked This Week</TableCell>
-            <TableCell>#TO CREATE</TableCell>
-          </TableRow>
         </TableBody>
       </Table>
     </TableContainer>

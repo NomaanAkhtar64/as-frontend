@@ -43,7 +43,7 @@ function RegistrationsScreen() {
 
   if (loading) return <CircularProgress />;
   return (
-    <TableContainer css={style.cont} component={Paper} sx={{ maxWidth: 800 }}>
+    <TableContainer css={style.cont} component={Paper}>
       <Table sx={{ minWidth: 400 }} aria-label='simple table'>
         <TableHead>
           <TableRow>

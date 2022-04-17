@@ -16,6 +16,7 @@ import BadgeIcon from '@mui/icons-material/Badge';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import CelebrationIcon from '@mui/icons-material/Celebration';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -25,6 +26,7 @@ const titles = {
   '/employees': 'VIEW EMPLOYEE DATA',
   '/manual-attendance': 'Manually Mark Employee Attendance',
   '/registrations': 'Approve Employee Registration Requests',
+  '/holidays': 'Manage Holidays',
 };
 
 function AdminLayout({ children, onLogout }) {
@@ -86,12 +88,24 @@ function AdminLayout({ children, onLogout }) {
         </List>
         <Divider />
         <List>
+          <ListItem button onClick={() => navigate('/holidays')}>
+            <ListItemIcon>
+              <CelebrationIcon />
+            </ListItemIcon>
+            <ListItemText primary='Holidays' />
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
           <ListItem button onClick={() => navigate('/manual-attendance')}>
             <ListItemIcon>
               <BadgeIcon />
             </ListItemIcon>
             <ListItemText primary='Manual Attendance' />
           </ListItem>
+        </List>
+        <Divider />
+        <List>
           <ListItem
             button
             onClick={() => {
