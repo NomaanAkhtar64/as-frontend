@@ -9,6 +9,7 @@ import {
   Registrations,
   RegistrationForm,
   Holidays,
+  HolidayForm,
 } from '../screens/Admin';
 function AdminRouter() {
   return (
@@ -19,6 +20,7 @@ function AdminRouter() {
       <Route exact path='/registrations' element={<Registrations />} />
       <Route exact path='/registrations/:id' element={<RegistrationForm />} />
       <Route exact path='/holidays' element={<Holidays />} />
+      <Route exact path='/holidays/create' element={<HolidayForm />} />
       <Route exact path='/' element={<Home />} />
     </Routes>
   );

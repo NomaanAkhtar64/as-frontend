@@ -4,18 +4,18 @@ import React, { useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
+import CircularProgress from '@mui/material/CircularProgress';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import Grid from '@mui/material/Grid';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import Typography from '@mui/material/Typography';
+
 import { useRegistrations } from '../../hooks/Admin/useRegistrations';
-import {
-  CircularProgress,
-  FormControl,
-  FormHelperText,
-  Grid,
-  Input,
-  InputLabel,
-  Typography,
-} from '@mui/material';
 import SubmitButton from '../../layout/generic/SubmitButton';
 import DateInput from '../../components/DateInput';
+
 const style = {
   padder: css`
     padding: 30px;

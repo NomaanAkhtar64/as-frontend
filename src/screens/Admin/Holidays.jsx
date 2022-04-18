@@ -13,9 +13,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import format from 'date-fns/format';
 import { useHolidays } from '../../hooks/Admin/useHolidays';
+import { Link } from 'react-router-dom';
 
 const style = {
   btn: css`
@@ -44,6 +46,11 @@ function HolidaysScreen() {
 
   return (
     <>
+      <Link to='/holidays/create'>
+        <Button variant='outlined' fullWidth as={Button} css={style.btn}>
+          Create
+        </Button>
+      </Link>
       <FormControl fullWidth>
         <InputLabel id='demo-simple-select-label'>View Holidays</InputLabel>
         <Select

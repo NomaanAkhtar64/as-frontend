@@ -34,5 +34,23 @@ export function useHolidays(viewMode) {
     setLoading(true);
   }, []);
 
-  return { data, loading, actions: { load } };
+  const create = React.useCallback(
+    (data) => {
+      return axios
+        .post(`${API_URL}/api/holidays/create/`, data, {
+          headers: { Authorization: `Token ${token}` },
+        })
+        .then((res) => {
+          setData(res.data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
+    },
+    [token]
+  );
+
+  return { data, loading, actions: { load, create } };
 }
