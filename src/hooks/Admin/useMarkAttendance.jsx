@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { API_URL } from '../../const';
 import useUser from '../user';
 
@@ -8,20 +8,13 @@ export function useMarkAttendance() {
     state: { token },
   } = useUser();
 
-  const markAttendance = useCallback(
-    ({ date, mark, id }) => {
-      const URL = `${API_URL}/api/mark_attendance/${id}/`;
+  const markAttendance = React.useCallback(
+    (data) => {
+      const URL = `${API_URL}/api/mark_attendance/${data.id}/`;
       return axios
-        .post(
-          URL,
-          {
-            date,
-            mark,
-          },
-          {
-            headers: { Authorization: `Token ${token}` },
-          }
-        )
+        .post(URL, data, {
+          headers: { Authorization: `Token ${token}` },
+        })
         .then((res) => {
           console.log(res.data);
         })

@@ -1,12 +1,6 @@
 import { CircularProgress } from '@mui/material';
 import axios from 'axios';
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { API_URL } from '../../const';
 import useUser from '../user';
 
