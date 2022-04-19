@@ -105,7 +105,7 @@ function AttendanceScreen() {
                   {viewMode === 'Month' && (
                     <TableRow>
                       <TableCell>
-                        {format(new Date(atd.year, atd.month), 'MMM yyyy')}
+                        {format(new Date(atd.year, parseInt(atd.month) - 1), 'MMM yyyy')}
                       </TableCell>
                       <TableCell>{atd.hours_worked}</TableCell>
                       <TableCell>
