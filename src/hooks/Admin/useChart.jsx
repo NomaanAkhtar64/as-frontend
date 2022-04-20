@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useCallback, useMemo } from 'react';
+import React from 'react';
 import { API_URL } from '../../const';
 import useUser from '../user';
 
