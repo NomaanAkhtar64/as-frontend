@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope -- Unaware of jsxImportSource */
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { Typography, Container, FormHelperText } from '@mui/material';
+import { Typography, Container } from '@mui/material';
 import { css } from '@emotion/react';
 import { Link } from 'react-router-dom';
 
