@@ -1,27 +1,27 @@
-import React, { useLayoutEffect } from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import LogoutIcon from '@mui/icons-material/Logout';
-import PersonIcon from '@mui/icons-material/Person';
-import BadgeIcon from '@mui/icons-material/Badge';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useLayoutEffect } from "react";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import CssBaseline from "@mui/material/CssBaseline";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import LogoutIcon from "@mui/icons-material/Logout";
+import PersonIcon from "@mui/icons-material/Person";
+import BadgeIcon from "@mui/icons-material/Badge";
+import { useLocation, useNavigate } from "react-router-dom";
+import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 
 const drawerWidth = 240;
 
 const titles = {
-  '/': 'Employee Hub',
-  '/attendance': 'Attendance',
+  "/": "Employee Hub",
+  "/attendance": "Attendance",
+  "/request-leave": "Request a Leave",
 };
 
 function EmployeeLayout({ children, onLogout }) {
@@ -29,22 +29,22 @@ function EmployeeLayout({ children, onLogout }) {
   const navigate = useNavigate();
 
   useLayoutEffect(() => {
-    document.title = 'Employee Hub';
+    document.title = "Employee Hub";
   }, []);
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar
-        position='fixed'
+        position="fixed"
         sx={{
           width: `calc(100% - ${drawerWidth}px)`,
           ml: `${drawerWidth}px`,
-          background: '#333',
+          background: "#333",
         }}
       >
         <Toolbar>
-          <Typography variant='h6' noWrap component='div'>
+          <Typography variant="h6" noWrap component="div">
             {titles[location.pathname]}
           </Typography>
         </Toolbar>
@@ -53,28 +53,37 @@ function EmployeeLayout({ children, onLogout }) {
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          '& .MuiDrawer-paper': {
+          "& .MuiDrawer-paper": {
             width: drawerWidth,
-            boxSizing: 'border-box',
+            boxSizing: "border-box",
           },
         }}
-        variant='permanent'
-        anchor='left'
+        variant="permanent"
+        anchor="left"
       >
         <Toolbar />
         <Divider />
         <List>
-          <ListItem button onClick={() => navigate('/')}>
+          <ListItem button onClick={() => navigate("/")}>
             <ListItemIcon>
               <PersonIcon />
             </ListItemIcon>
-            <ListItemText primary='Employee' />
+            <ListItemText primary="Employee" />
           </ListItem>
-          <ListItem button onClick={() => navigate('/attendance')}>
+          <ListItem button onClick={() => navigate("/attendance")}>
             <ListItemIcon>
               <BadgeIcon />
             </ListItemIcon>
-            <ListItemText primary='Attendance' />
+            <ListItemText primary="Attendance" />
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
+          <ListItem button onClick={() => navigate("/request-leave")}>
+            <ListItemIcon>
+              <AccessTimeFilledIcon />
+            </ListItemIcon>
+            <ListItemText primary="Request a Leave" />
           </ListItem>
         </List>
         <Divider />
@@ -83,19 +92,19 @@ function EmployeeLayout({ children, onLogout }) {
             button
             onClick={() => {
               onLogout();
-              navigate('/');
+              navigate("/");
             }}
           >
             <ListItemIcon>
               <LogoutIcon />
             </ListItemIcon>
-            <ListItemText primary='Logout' />
+            <ListItemText primary="Logout" />
           </ListItem>
         </List>
       </Drawer>
       <Box
-        component='main'
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+        component="main"
+        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
       >
         <Toolbar />
         {children}

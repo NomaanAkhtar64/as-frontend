@@ -10,11 +10,13 @@ import {
   RegistrationForm,
   Holidays,
   HolidayForm,
-  Calendar
+  Calendar,
+  RequestedLeaves
 } from '../screens/Admin';
 function AdminRouter() {
   return (
     <Routes>
+      <Route exact path='/requested-leaves' element={<RequestedLeaves />} />
       <Route exact path='/employees' element={<Employees />} />
       <Route path='/employees/attendance/:id' element={<Attendance />} />
       <Route exact path='/manual-attendance' element={<ManualAttendance />} />

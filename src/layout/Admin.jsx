@@ -1,21 +1,22 @@
-import React, { useLayoutEffect } from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import React, { useLayoutEffect } from "react";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import CssBaseline from "@mui/material/CssBaseline";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
 
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import BadgeIcon from '@mui/icons-material/Badge';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import CelebrationIcon from '@mui/icons-material/Celebration';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -28,7 +29,8 @@ const titles = {
   '/manual-attendance': 'Manually Mark Employee Attendance',
   '/registrations': 'Approve Employee Registration Requests',
   '/holidays': 'Manage Holidays',
-  "/calendar": "View Calendar"
+  "/calendar": "View Calendar",
+  "/requested-leaves": "Check all the Requested Leaves",
 };
 
 function AdminLayout({ children, onLogout }) {
@@ -36,17 +38,17 @@ function AdminLayout({ children, onLogout }) {
   const navigate = useNavigate();
 
   useLayoutEffect(() => {
-    document.title = 'Admin Panel';
+    document.title = "Admin Panel";
   }, []);
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar
-        position='fixed'
+        position="fixed"
         sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       >
         <Toolbar>
-          <Typography variant='h6' noWrap component='div'>
+          <Typography variant="h6" noWrap component="div">
             {titles[location.pathname]}
           </Typography>
         </Toolbar>
@@ -55,37 +57,37 @@ function AdminLayout({ children, onLogout }) {
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          '& .MuiDrawer-paper': {
+          "& .MuiDrawer-paper": {
             width: drawerWidth,
-            boxSizing: 'border-box',
+            boxSizing: "border-box",
           },
         }}
-        variant='permanent'
-        anchor='left'
+        variant="permanent"
+        anchor="left"
       >
         <Toolbar />
         <Divider />
         <List>
-          <ListItem button onClick={() => navigate('/')}>
+          <ListItem button onClick={() => navigate("/")}>
             <ListItemIcon>
-              <AdminPanelSettingsIcon />
+              <AdminPanelSettingsIcon style={{ color: "#1976d2" }} />
             </ListItemIcon>
-            <ListItemText primary='Admin' />
+            <ListItemText primary="Overview" />
           </ListItem>
         </List>
         <Divider />
         <List>
-          <ListItem button onClick={() => navigate('/employees')}>
+          <ListItem button onClick={() => navigate("/employees")}>
             <ListItemIcon>
-              <PeopleAltIcon />
+              <PeopleAltIcon style={{ color: "#1976d2" }} />
             </ListItemIcon>
-            <ListItemText primary='Employees' />
+            <ListItemText primary="Employees" />
           </ListItem>
-          <ListItem button onClick={() => navigate('/registrations')}>
+          <ListItem button onClick={() => navigate("/registrations")}>
             <ListItemIcon>
-              <AppRegistrationIcon />
+              <AppRegistrationIcon style={{ color: "#1976d2" }} />
             </ListItemIcon>
-            <ListItemText primary='Registrations' />
+            <ListItemText primary="Registrations" />
           </ListItem>
         </List>
         <Divider />
@@ -96,20 +98,29 @@ function AdminLayout({ children, onLogout }) {
             </ListItemIcon>
             <ListItemText primary='Calendar' />
           </ListItem> */}
-          <ListItem button onClick={() => navigate('/holidays')}>
+          <ListItem button onClick={() => navigate("/holidays")}>
             <ListItemIcon>
-              <CelebrationIcon />
+              <CelebrationIcon style={{ color: "#1976d2" }} />
             </ListItemIcon>
-            <ListItemText primary='Holidays' />
+            <ListItemText primary="Holidays" />
           </ListItem>
         </List>
         <Divider />
         <List>
-          <ListItem button onClick={() => navigate('/manual-attendance')}>
+          <ListItem button onClick={() => navigate("/manual-attendance")}>
             <ListItemIcon>
-              <BadgeIcon />
+              <BadgeIcon style={{ color: "#1976d2" }} />
             </ListItemIcon>
-            <ListItemText primary='Manual Attendance' />
+            <ListItemText primary="Manual Attendance" />
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
+          <ListItem button onClick={() => navigate("/requested-leaves")}>
+            <ListItemIcon>
+              <AccessTimeFilledIcon style={{ color: "#1976d2" }} />
+            </ListItemIcon>
+            <ListItemText primary="Requested Leaves" />
           </ListItem>
         </List>
         <Divider />
@@ -118,19 +129,19 @@ function AdminLayout({ children, onLogout }) {
             button
             onClick={() => {
               onLogout();
-              navigate('/');
+              navigate("/");
             }}
           >
             <ListItemIcon>
-              <LogoutIcon />
+              <LogoutIcon style={{ color: "#1976d2" }} />
             </ListItemIcon>
-            <ListItemText primary='Logout' />
+            <ListItemText primary="Logout" />
           </ListItem>
         </List>
       </Drawer>
       <Box
-        component='main'
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+        component="main"
+        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
       >
         <Toolbar />
         {children}

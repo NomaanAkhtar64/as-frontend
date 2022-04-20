@@ -13,10 +13,10 @@ function App() {
   if (!userManager.isLogin)
     return (
       <Routes>
-        <Route path='/' exact element={<Screens.Login />} />
-        <Route path='/signup' exact element={<Screens.SignUp />} />
-        <Route path='/signup/success' element={<Screens.SignUpSuccess />} />
-        <Route path='*' element={<Navigate to='/' replace />} />
+        <Route path="/" exact element={<Screens.Login />} />
+        <Route path="/signup" exact element={<Screens.SignUp />} />
+        <Route path="/signup/success" element={<Screens.SignUpSuccess />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     );
   if (userManager.state.user.is_staff)
@@ -29,9 +29,11 @@ function App() {
     );
 
   return (
-    <Layout.Employee onLogout={() => userManager.actions.logout()}>
-      <Routers.Employee />
-    </Layout.Employee>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <Layout.Employee onLogout={() => userManager.actions.logout()}>
+        <Routers.Employee />
+      </Layout.Employee>
+    </LocalizationProvider>
   );
 }
 
