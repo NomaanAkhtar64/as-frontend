@@ -23,6 +23,11 @@ const titles = {
   "/attendance": "Attendance",
   "/request-leave": "Request a Leave",
 };
+const menuBarLists = [
+  [{ text: "Employee", Icon: PersonIcon, route: "/" },
+  { text: "Attendance", Icon: BadgeIcon, route: "/attendance" }],
+  [{ text: "Request a Leave", Icon: AccessTimeFilledIcon, route: "/request-leave" }],
+]
 
 function EmployeeLayout({ children, onLogout }) {
   const location = useLocation();
@@ -62,30 +67,21 @@ function EmployeeLayout({ children, onLogout }) {
         anchor="left"
       >
         <Toolbar />
-        <Divider />
-        <List>
-          <ListItem button onClick={() => navigate("/")}>
-            <ListItemIcon>
-              <PersonIcon />
-            </ListItemIcon>
-            <ListItemText primary="Employee" />
-          </ListItem>
-          <ListItem button onClick={() => navigate("/attendance")}>
-            <ListItemIcon>
-              <BadgeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Attendance" />
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem button onClick={() => navigate("/request-leave")}>
-            <ListItemIcon>
-              <AccessTimeFilledIcon />
-            </ListItemIcon>
-            <ListItemText primary="Request a Leave" />
-          </ListItem>
-        </List>
+        {menuBarLists.map((list, idx) => (
+          <React.Fragment key={idx}>
+            <Divider />
+            <List>
+              {list.map((item, idx2) => (
+                <ListItem key={idx2} button onClick={() => navigate(item.route)}>
+                  <ListItemIcon>
+                    <item.Icon style={{ color: "#333" }} />
+                  </ListItemIcon>
+                  <ListItemText primary={item.text} />
+                </ListItem>
+              ))}
+            </List>
+          </React.Fragment>
+        ))}
         <Divider />
         <List>
           <ListItem

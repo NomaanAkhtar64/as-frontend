@@ -11,7 +11,8 @@ import {
 } from "@mui/material";
 import { css } from "@emotion/react";
 import { useRequestedLeaves } from "../../hooks/Admin/useRequestedLeaves";
-
+import NotFound from '../../components/NotFount';
+import format from "date-fns/format";
 const style = {
   cont: css`
     margin: 0px auto;
@@ -34,6 +35,8 @@ function RequestedLeaves() {
   };
 
   if (loading) return <CircularProgress />;
+  if (data.length === 0) return <NotFound dataName="Leave Requests" />
+
   return (
     <TableContainer css={style.cont} component={Paper}>
       <Table sx={{ minWidth: 400 }} aria-label="simple table">
@@ -56,7 +59,7 @@ function RequestedLeaves() {
                 {request.employee_detail.first_name}{" "}
                 {request.employee_detail.last_name}
               </TableCell>
-              <TableCell>{request.date}</TableCell>
+              <TableCell>{format(Date.parse(request.date), 'do MMM yyyy')}</TableCell>
               <TableCell>{request.reason}</TableCell>
               <TableCell>{request.msg}</TableCell>
               <TableCell>

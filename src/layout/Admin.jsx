@@ -15,9 +15,10 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import BadgeIcon from '@mui/icons-material/Badge';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+// import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+
 import CelebrationIcon from '@mui/icons-material/Celebration';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -29,9 +30,20 @@ const titles = {
   '/manual-attendance': 'Manually Mark Employee Attendance',
   '/registrations': 'Approve Employee Registration Requests',
   '/holidays': 'Manage Holidays',
-  "/calendar": "View Calendar",
+  // "/calendar": "View Calendar",
   "/requested-leaves": "Check all the Requested Leaves",
 };
+
+const menuBarLists = [
+  [{ text: "Overview", Icon: AdminPanelSettingsIcon, route: "/" }],
+  [{ text: "Employees", Icon: PeopleAltIcon, route: "/employees" },
+  { text: "Registrations", Icon: AppRegistrationIcon, route: "/registrations" },
+  { text: "Leave Requests", Icon: AccessTimeFilledIcon, route: "/requested-leaves" }],
+  [{ text: "Holidays", Icon: CelebrationIcon, route: "/holidays" },
+    // {text: "Calendar", Icon:CalendarMonthIcon, route:"/calendar"}
+  ],
+  [{ text: "Manual Attendance", Icon: BadgeIcon, route: "/manual-attendance" }]
+]
 
 function AdminLayout({ children, onLogout }) {
   const location = useLocation();
@@ -66,63 +78,21 @@ function AdminLayout({ children, onLogout }) {
         anchor="left"
       >
         <Toolbar />
-        <Divider />
-        <List>
-          <ListItem button onClick={() => navigate("/")}>
-            <ListItemIcon>
-              <AdminPanelSettingsIcon style={{ color: "#1976d2" }} />
-            </ListItemIcon>
-            <ListItemText primary="Overview" />
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem button onClick={() => navigate("/employees")}>
-            <ListItemIcon>
-              <PeopleAltIcon style={{ color: "#1976d2" }} />
-            </ListItemIcon>
-            <ListItemText primary="Employees" />
-          </ListItem>
-          <ListItem button onClick={() => navigate("/registrations")}>
-            <ListItemIcon>
-              <AppRegistrationIcon style={{ color: "#1976d2" }} />
-            </ListItemIcon>
-            <ListItemText primary="Registrations" />
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          {/* <ListItem button onClick={() => navigate('/calendar')}>
-            <ListItemIcon>
-              <CalendarMonthIcon />
-            </ListItemIcon>
-            <ListItemText primary='Calendar' />
-          </ListItem> */}
-          <ListItem button onClick={() => navigate("/holidays")}>
-            <ListItemIcon>
-              <CelebrationIcon style={{ color: "#1976d2" }} />
-            </ListItemIcon>
-            <ListItemText primary="Holidays" />
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem button onClick={() => navigate("/manual-attendance")}>
-            <ListItemIcon>
-              <BadgeIcon style={{ color: "#1976d2" }} />
-            </ListItemIcon>
-            <ListItemText primary="Manual Attendance" />
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem button onClick={() => navigate("/requested-leaves")}>
-            <ListItemIcon>
-              <AccessTimeFilledIcon style={{ color: "#1976d2" }} />
-            </ListItemIcon>
-            <ListItemText primary="Requested Leaves" />
-          </ListItem>
-        </List>
+        {menuBarLists.map((list, idx) => (
+          <React.Fragment key={idx}>
+            <Divider />
+            <List>
+              {list.map((item, idx2) => (
+                <ListItem key={idx2} button onClick={() => navigate(item.route)}>
+                  <ListItemIcon>
+                    <item.Icon style={{ color: "#1976d2" }} />
+                  </ListItemIcon>
+                  <ListItemText primary={item.text} />
+                </ListItem>
+              ))}
+            </List>
+          </React.Fragment>
+        ))}
         <Divider />
         <List>
           <ListItem
@@ -146,7 +116,7 @@ function AdminLayout({ children, onLogout }) {
         <Toolbar />
         {children}
       </Box>
-    </Box>
+    </Box >
   );
 }
 

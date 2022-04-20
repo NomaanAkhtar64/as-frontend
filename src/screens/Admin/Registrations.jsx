@@ -13,6 +13,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import { useRegistrations } from '../../hooks/Admin/useRegistrations';
+import NotFound from '../../components/NotFount';
 const style = {
   cont: css`
     margin: 0px auto;
@@ -42,6 +43,7 @@ function RegistrationsScreen() {
   }, [fetchAll, fetchAllCancel]);
 
   if (loading) return <CircularProgress />;
+  if (registrations.length === 0) return <NotFound dataName="Employee Registrations" />
   return (
     <TableContainer css={style.cont} component={Paper}>
       <Table sx={{ minWidth: 400 }} aria-label='simple table'>

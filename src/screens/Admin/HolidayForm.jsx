@@ -40,8 +40,8 @@ function HolidayFormScreen() {
   const today = new Date();
   const [name, setName] = React.useState('');
   const [date, setDate] = React.useState({
-    d: fixDigits(today.getDay(), 2),
-    m: fixDigits(today.getMonth(), 2),
+    d: fixDigits(today.getDate(), 2),
+    m: fixDigits(today.getMonth() + 1, 2),
     y: fixDigits(today.getFullYear(), 4),
   });
   const [repeats, setRepeats] = React.useState(false);

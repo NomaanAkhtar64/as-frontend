@@ -33,13 +33,13 @@ export function useRequestedLeaves() {
   }, [token]);
 
   const update = React.useCallback(
-    (data, id) => {
+    (updatedData, id) => {
       return axios
-        .patch(`${API_URL}/api/request/leave/${id}`, data, {
+        .patch(`${API_URL}/api/request/leave/${id}/`, updatedData, {
           headers: { Authorization: `Token ${token}` },
         })
         .then((res) => {
-          setData(res.data);
+          setData([...data.filter(d => d.id !== id)]);
           setLoading(false);
         })
         .catch((err) => {
@@ -47,17 +47,17 @@ export function useRequestedLeaves() {
           setLoading(false);
         });
     },
-    [token]
+    [token, data]
   );
 
   const reject = React.useCallback(
     (id) => {
       return axios
-        .delete(`${API_URL}/api/request/leave/${id}`, {
+        .delete(`${API_URL}/api/request/leave/${id}/`, {
           headers: { Authorization: `Token ${token}` },
         })
         .then((res) => {
-          setData(res.data);
+          setData([...data.filter(d => d.id !== id)]);
           setLoading(false);
         })
         .catch((err) => {
@@ -65,7 +65,7 @@ export function useRequestedLeaves() {
           setLoading(false);
         });
     },
-    [token]
+    [token, data]
   );
 
   return { data, loading, actions: { update, reject } };

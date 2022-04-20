@@ -14,6 +14,7 @@ import Button from '@mui/material/Button';
 
 import { useEmployeeArray } from '../../hooks/Admin/employeeArray';
 import { Link } from 'react-router-dom';
+import NotFound from '../../components/NotFount';
 
 const style = {
   cont: css`
@@ -25,6 +26,7 @@ const style = {
 function EmployeesScreen() {
   const { data: employees, loading } = useEmployeeArray();
   if (loading) return <CircularProgress />;
+  if (employees.length === 0) return <NotFound dataName="Employee" />
 
   return (
     <TableContainer css={style.cont} component={Paper}>

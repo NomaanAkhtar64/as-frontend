@@ -39,8 +39,8 @@ function RequestLeave() {
 
   const today = new Date();
   const [date, setDate] = useState({
-    d: fixDigits(today.getDay(), 2),
-    m: fixDigits(today.getMonth(), 2),
+    d: fixDigits(today.getDate(), 2),
+    m: fixDigits(today.getMonth() + 1, 2),
     y: fixDigits(today.getFullYear(), 4),
   });
 

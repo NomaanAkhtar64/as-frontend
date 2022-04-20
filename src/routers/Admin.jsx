@@ -10,7 +10,7 @@ import {
   RegistrationForm,
   Holidays,
   HolidayForm,
-  Calendar,
+  // Calendar,
   RequestedLeaves
 } from '../screens/Admin';
 function AdminRouter() {
