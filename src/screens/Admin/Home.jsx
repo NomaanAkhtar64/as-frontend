@@ -3,6 +3,11 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,7 +19,6 @@ import {
   ArcElement,
 } from 'chart.js';
 import { Bar, Pie } from 'react-chartjs-2';
-import { Button, CircularProgress, Paper } from '@mui/material';
 import { useChart } from '../../hooks/Admin/useChart';
 
 ChartJS.register(
@@ -59,19 +63,25 @@ const style = {
   cont: css`
   `,
   sect: css`
-  padding: 10px;
+  padding: 10px 10px 30px 10px;
+  margin: 20px 0px;
   `,
   btn: css`
-  margin: 2px 0px;
+  margin: 2px;
   `,
   sectTitle: css`
   text-align: center;
   margin: 10px;
+  `,
+  btnCont: css`
+  margin:0px auto;
+  width: fit-content;
   `
 }
 
 function HomeScreen() {
-  const [openedChart, setOpenedChart] = React.useState("")
+  const [openedbarChart, setOpenedBarChart] = React.useState("")
+  const [openedpieChart, setOpenedPieChart] = React.useState("")
   const { data: chartData, loading } = useChart()
   if (loading) return <CircularProgress />
   return (
@@ -88,51 +98,54 @@ function HomeScreen() {
 
       <Paper css={style.sect}>
         <Typography
-          variant='h6'                      // borderColor: c.background_colors,
-
+          variant='h6'
           css={style.sectTitle}
         >
           Yearly Progress
         </Typography>
-        {chartData.bar.map(({ title, key }, idx) => (
-          <Button key={idx} onClick={() => {
-            if (openedChart === key) {
-              setOpenedChart("")
-            }
-            else {
-              setOpenedChart(key)
-            }
-          }}
-            fullWidth css={style.btn}
-            variant={openedChart === key ? "contained" : "outlined"}
-          >{title}</Button>
-        ))}
-        {chartData.bar.map(((c, idx) => (
-          <React.Fragment key={idx} >
-            {openedChart === c.key && (
-              <Bar options={{
-                responsive: true,
-                legend: {
-                  display: false
-                },
-                plugins: {
-                  title: {
-                    display: true,
-                    text: c.title,
+        <Box css={style.btnCont} >
+          {chartData.bar.map(({ title, key }, idx) => (
+            <Button key={idx} onClick={() => {
+              if (openedbarChart === key) {
+                setOpenedBarChart("")
+              }
+              else {
+                setOpenedBarChart(key)
+              }
+            }}
+              css={style.btn}
+              variant={openedbarChart === key ? "contained" : "outlined"}
+            >{title}</Button>
+          ))}
+        </Box>
+        <Box sx={{ maxWidth: '900px', margin: "0px auto" }}>
+          {chartData.bar.map(((c, idx) => (
+            <React.Fragment key={idx} >
+              {openedbarChart === c.key && (
+                <Bar options={{
+                  responsive: true,
+                  legend: {
+                    display: false
                   },
-                },
-              }}
-                data={{
-                  labels: chartData.month_label,
-                  datasets: [{
-                    label: c.title,
-                    data: c.data,
-                    backgroundColor: c.background_color,
-                  }]
-                }} />
-            )}
-          </React.Fragment>
-        )))}
+                  plugins: {
+                    title: {
+                      display: true,
+                      text: c.title,
+                    },
+                  },
+                }}
+                  data={{
+                    labels: chartData.month_label,
+                    datasets: [{
+                      label: c.title,
+                      data: c.data,
+                      backgroundColor: c.background_color,
+                    }]
+                  }} />
+              )}
+            </React.Fragment>
+          )))}
+        </Box>
       </Paper>
       <Paper css={style.sect}>
         <Typography
@@ -141,36 +154,40 @@ function HomeScreen() {
         >
           Monthly Progress
         </Typography>
-        {chartData.pie.map(({ title, key }, idx) => (
-          <Button key={idx} onClick={() => {
-            if (openedChart === key) {
-              setOpenedChart("")
-            }
-            else {
-              setOpenedChart(key)
-            }
-          }}
-            fullWidth css={style.btn}
-            variant={openedChart === key ? "contained" : "outlined"}
-          >{title}</Button>
-        ))}
-        {chartData.pie.map(((c, idx) => (
-          <React.Fragment key={idx} >
-            {openedChart === c.key && (
-              <Pie
-                data={{
-                  labels: c.labels,
-                  datasets: [
-                    {
-                      label: c.title,
-                      data: c.data,
-                      backgroundColor: c.background_colors,
-                      borderWidth: 1,
-                    },
-                  ]
-                }} />)}
-          </React.Fragment>
-        )))}
+        <Box css={style.btnCont}>
+          {chartData.pie.map(({ title, key }, idx) => (
+            <Button key={idx} onClick={() => {
+              if (openedpieChart === key) {
+                setOpenedPieChart("")
+              }
+              else {
+                setOpenedPieChart(key)
+              }
+            }}
+              css={style.btn}
+              variant={openedpieChart === key ? "contained" : "outlined"}
+            >{title}</Button>
+          ))}
+        </Box>
+        <Box sx={{ maxWidth: '500px', margin: "0px auto" }}>
+          {chartData.pie.map(((c, idx) => (
+            <React.Fragment key={idx} >
+              {openedpieChart === c.key && (
+                <Pie
+                  data={{
+                    labels: c.labels,
+                    datasets: [
+                      {
+                        label: c.title,
+                        data: c.data,
+                        backgroundColor: c.background_colors,
+                        borderWidth: 1,
+                      },
+                    ]
+                  }} />)}
+            </React.Fragment>
+          )))}
+        </Box>
       </Paper>
     </div>)
 

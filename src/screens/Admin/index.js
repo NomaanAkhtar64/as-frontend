@@ -6,3 +6,4 @@ export { default as Registrations } from './Registrations';
 export { default as RegistrationForm } from './RegistrationForm';
 export { default as Holidays } from './Holidays';
 export { default as HolidayForm } from './HolidayForm';
+export { default as Calendar } from './Calendar';

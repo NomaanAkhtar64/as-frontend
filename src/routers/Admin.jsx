@@ -10,6 +10,7 @@ import {
   RegistrationForm,
   Holidays,
   HolidayForm,
+  Calendar
 } from '../screens/Admin';
 function AdminRouter() {
   return (
@@ -21,6 +22,7 @@ function AdminRouter() {
       <Route exact path='/registrations/:id' element={<RegistrationForm />} />
       <Route exact path='/holidays' element={<Holidays />} />
       <Route exact path='/holidays/create' element={<HolidayForm />} />
+      {/* <Route exact path='/calendar' element={<Calendar />} /> */}
       <Route exact path='/' element={<Home />} />
     </Routes>
   );

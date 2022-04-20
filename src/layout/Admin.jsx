@@ -15,6 +15,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import BadgeIcon from '@mui/icons-material/Badge';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import CelebrationIcon from '@mui/icons-material/Celebration';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -27,6 +28,7 @@ const titles = {
   '/manual-attendance': 'Manually Mark Employee Attendance',
   '/registrations': 'Approve Employee Registration Requests',
   '/holidays': 'Manage Holidays',
+  "/calendar": "View Calendar"
 };
 
 function AdminLayout({ children, onLogout }) {
@@ -88,6 +90,12 @@ function AdminLayout({ children, onLogout }) {
         </List>
         <Divider />
         <List>
+          {/* <ListItem button onClick={() => navigate('/calendar')}>
+            <ListItemIcon>
+              <CalendarMonthIcon />
+            </ListItemIcon>
+            <ListItemText primary='Calendar' />
+          </ListItem> */}
           <ListItem button onClick={() => navigate('/holidays')}>
             <ListItemIcon>
               <CelebrationIcon />
