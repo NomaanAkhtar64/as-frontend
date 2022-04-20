@@ -175,7 +175,7 @@ function HomeScreen() {
               </Button>
             ))}
           </Box>
-          <Box sx={{ maxWidth: "500px", margin: "0px auto" }}>
+          <Box sx={{ maxWidth: "300px", margin: "0px auto" }}>
             {chartData.pie.map((c, idx) => (
               <React.Fragment key={idx}>
                 {openedpieChart === c.key && (
