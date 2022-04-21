@@ -15,6 +15,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import BadgeIcon from "@mui/icons-material/Badge";
 import { useLocation, useNavigate } from "react-router-dom";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
+import DoneIcon from '@mui/icons-material/Done';
 
 const drawerWidth = 240;
 
@@ -22,11 +23,13 @@ const titles = {
   "/": "Employee Hub",
   "/attendance": "Attendance",
   "/request-leave": "Request a Leave",
+  "/granted-leaves": "Granted Leaves"
 };
 const menuBarLists = [
   [{ text: "Employee", Icon: PersonIcon, route: "/" },
   { text: "Attendance", Icon: BadgeIcon, route: "/attendance" }],
-  [{ text: "Request a Leave", Icon: AccessTimeFilledIcon, route: "/request-leave" }],
+  [{ text: "Request a Leave", Icon: AccessTimeFilledIcon, route: "/request-leave" },
+  { text: "Granted Leaves", Icon: DoneIcon, route: "/granted-leaves" }],
 ]
 
 function EmployeeLayout({ children, onLogout }) {

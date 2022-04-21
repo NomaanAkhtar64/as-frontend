@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { EmployeeProvider } from "../hooks/Employee/employee";
-import { Home, Attendance, RequestLeave } from "../screens/Employee";
+import { Home, Attendance, RequestLeave, GrantedLeaves } from "../screens/Employee";
 function EmployeeRouter() {
   return (
     <EmployeeProvider>
@@ -9,6 +9,8 @@ function EmployeeRouter() {
         <Route path="/" element={<Home />} />
         <Route path="/attendance" element={<Attendance />} />
         <Route path="/request-leave" element={<RequestLeave />} />
+        <Route path="/granted-leaves" element={<GrantedLeaves />} />
+
       </Routes>
     </EmployeeProvider>
   );

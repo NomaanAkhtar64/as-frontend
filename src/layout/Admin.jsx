@@ -15,7 +15,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import BadgeIcon from '@mui/icons-material/Badge';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-// import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import DoneIcon from '@mui/icons-material/Done';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
@@ -30,17 +30,17 @@ const titles = {
   '/manual-attendance': 'Manually Mark Employee Attendance',
   '/registrations': 'Approve Employee Registration Requests',
   '/holidays': 'Manage Holidays',
-  // "/calendar": "View Calendar",
   "/requested-leaves": "Check all the Requested Leaves",
+  "/granted-leaves": "Granted Leaves"
 };
 
 const menuBarLists = [
   [{ text: "Overview", Icon: AdminPanelSettingsIcon, route: "/" }],
   [{ text: "Employees", Icon: PeopleAltIcon, route: "/employees" },
   { text: "Registrations", Icon: AppRegistrationIcon, route: "/registrations" },
-  { text: "Leave Requests", Icon: AccessTimeFilledIcon, route: "/requested-leaves" }],
+  { text: "Leave Requests", Icon: AccessTimeFilledIcon, route: "/requested-leaves" },
+  { text: "Granted Leaves", Icon: DoneIcon, route: "/granted-leaves" }],
   [{ text: "Holidays", Icon: CelebrationIcon, route: "/holidays" },
-    // {text: "Calendar", Icon:CalendarMonthIcon, route:"/calendar"}
   ],
   [{ text: "Manual Attendance", Icon: BadgeIcon, route: "/manual-attendance" }]
 ]

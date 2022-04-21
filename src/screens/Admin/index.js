@@ -7,4 +7,4 @@ export { default as RegistrationForm } from "./RegistrationForm";
 export { default as Holidays } from "./Holidays";
 export { default as HolidayForm } from "./HolidayForm";
 export { default as RequestedLeaves } from "./RequestedLeaves";
-export { default as Calendar } from './Calendar';
+export { default as GrantedLeaves } from "./GrantedLeaves";

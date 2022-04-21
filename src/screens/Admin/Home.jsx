@@ -178,7 +178,9 @@ function HomeScreen() {
       </Box>
       <Calendar css={css`
         width:100%;
-      `} onChange={setCalendarDate} value={calendarDate} />
+      `}
+        onChange={setCalendarDate}
+        value={calendarDate} />
     </div>
   );
 }
