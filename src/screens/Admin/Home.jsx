@@ -7,7 +7,8 @@ import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -30,33 +31,6 @@ ChartJS.register(
   Legend,
   ArcElement
 );
-// ChartJS.register(ArcElement, Tooltip, Legend);
-// const data = {
-//   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-//   datasets: [
-//     {
-//       label: '# of Votes',
-//       data: [12, 19, 3, 5, 2, 3],
-//       backgroundColor: [
-//         'rgba(255, 99, 132, 0.2)',
-//         'rgba(54, 162, 235, 0.2)',
-//         'rgba(255, 206, 86, 0.2)',
-//         'rgba(75, 192, 192, 0.2)',
-//         'rgba(153, 102, 255, 0.2)',
-//         'rgba(255, 159, 64, 0.2)',
-//       ],
-//       borderColor: [
-//         'rgba(255, 99, 132, 1)',
-//         'rgba(54, 162, 235, 1)',
-//         'rgba(255, 206, 86, 1)',
-//         'rgba(75, 192, 192, 1)',
-//         'rgba(153, 102, 255, 1)',
-//         'rgba(255, 159, 64, 1)',
-//       ],
-//       borderWidth: 1,
-//     },
-//   ],
-// };
 
 const style = {
   cont: css`
@@ -83,6 +57,8 @@ const style = {
 function HomeScreen() {
   const [openedbarChart, setOpenedBarChart] = React.useState("bhw");
   const [openedpieChart, setOpenedPieChart] = React.useState("phw");
+  const [calendarDate, setCalendarDate] = React.useState(new Date());
+
   const { data: chartData, loading } = useChart();
   console.log(openedbarChart, openedpieChart);
   if (loading) return <CircularProgress />;
@@ -97,6 +73,7 @@ function HomeScreen() {
       >
         Welcome to Admin Panel
       </Typography>
+
       <Box sx={{ display: "flex" }}>
         <Paper css={style.sect}>
           <Typography variant="h6" css={style.sectTitle}>
@@ -196,8 +173,12 @@ function HomeScreen() {
               </React.Fragment>
             ))}
           </Box>
+
         </Paper>
       </Box>
+      <Calendar css={css`
+        width:100%;
+      `} onChange={setCalendarDate} value={calendarDate} />
     </div>
   );
 }
