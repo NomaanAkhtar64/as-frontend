@@ -125,6 +125,7 @@ function RegistrationFormScreen() {
             last_name: lastName,
             brand_of_device: device,
             wage_per_hour: parseFloat(wage),
+            contact_number: contact,
             date_of_birth: `${dob.y}-${dob.m}-${dob.d}`,
             joining_date: `${joining.y}-${joining.m}-${joining.d}`,
             user: reg.user,
