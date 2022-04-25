@@ -145,8 +145,7 @@ function SignUpScreen() {
       setDisable(false);
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        let data = err.response.data;
-        console.log(data);
+        console.log(err);
         setError('SERVER ERROR');
         setDisable(false);
       }
