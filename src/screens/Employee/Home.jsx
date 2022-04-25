@@ -38,7 +38,7 @@ function HomeScreen() {
           </TableRow>
           <TableRow>
             <TableCell>Wage Per Hour</TableCell>
-            <TableCell>{employee.wage_per_hour}$</TableCell>
+            <TableCell>£{employee.wage_per_hour}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Employee Status</TableCell>

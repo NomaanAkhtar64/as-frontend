@@ -60,7 +60,7 @@ function HomeScreen() {
   const [calendarDate, setCalendarDate] = React.useState(new Date());
 
   const { data: chartData, loading } = useChart();
-  console.log(openedbarChart, openedpieChart);
+
   if (loading) return <CircularProgress />;
   return (
     <div css={style.cont}>

@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope -- Unaware of jsxImportSource */
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React from "react";
 import {
   FormControl,
   InputLabel,
@@ -9,16 +9,16 @@ import {
   Typography,
   Container,
   Grid,
-} from '@mui/material';
-import { css } from '@emotion/react';
-import useUser from '../hooks/user';
-import axios from 'axios';
-import { EMAIL_REGEX } from '../const';
-import Loading from '../components/Loading';
-import SubmitButton from '../layout/generic/SubmitButton';
-import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
-import DateInput from '../components/DateInput';
+} from "@mui/material";
+import { css } from "@emotion/react";
+import useUser from "../hooks/user";
+import axios from "axios";
+import { EMAIL_REGEX } from "../const";
+import Loading from "../components/Loading";
+import SubmitButton from "../layout/generic/SubmitButton";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import DateInput from "../components/DateInput";
 
 const style = {
   wrapper: css`
@@ -57,14 +57,14 @@ const style = {
 };
 
 function SignUpScreen() {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [confirmPassword, setConfirmPassword] = React.useState('');
-  const [firstName, setFirstName] = React.useState('');
-  const [lastName, setLastName] = React.useState('');
-  const [device, setDevice] = React.useState('');
-  const [contact, setContact] = React.useState('');
-  const [dob, setDOB] = React.useState({ d: '', m: '', y: '' });
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [device, setDevice] = React.useState("");
+  const [contact, setContact] = React.useState("");
+  const [dob, setDOB] = React.useState({ d: "", m: "", y: "" });
 
   const [disable, setDisable] = React.useState(false);
   const [error, setError] = React.useState(null);
@@ -81,21 +81,23 @@ function SignUpScreen() {
   const navigate = useNavigate();
 
   React.useLayoutEffect(() => {
-    document.title = 'Company Registration';
+    document.title = "Company Registration";
   }, []);
+
+
 
   async function onSubmit(e) {
     e.preventDefault();
     let hasError = false;
-    if (!firstName) setFirstNameError('First Name is Required');
-    if (!lastName) setLastNameError('Last Name is Required');
-    if (!email) setEmailError('Email is Required');
-    if (!password) setPasswordError('Password is Required');
+    if (!firstName) setFirstNameError("First Name is Required");
+    if (!lastName) setLastNameError("Last Name is Required");
+    if (!email) setEmailError("Email is Required");
+    if (!password) setPasswordError("Password is Required");
     if (!confirmPassword)
-      setConfirmPasswordError('Password Confirmation is Required');
-    if (!device) setDeviceError('Brand Of Device is Required');
-    if (!contact) setContactError('Contact Number is Required');
-    if (!dob.d || !dob.m || !dob.y) setDOBError('Date Of Birth is required!');
+      setConfirmPasswordError("Password Confirmation is Required");
+    if (!device) setDeviceError("Brand Of Device is Required");
+    if (!contact) setContactError("Contact Number is Required");
+    if (!dob.d || !dob.m || !dob.y) setDOBError("Date Of Birth is required!");
 
     if (
       !email ||
@@ -112,18 +114,18 @@ function SignUpScreen() {
       hasError = true;
 
     if (password !== confirmPassword) {
-      setPasswordError('');
-      setConfirmPasswordError('Password Does Not Match');
+      setPasswordError("");
+      setConfirmPasswordError("Password Does Not Match");
       hasError = true;
     }
 
     if (!email.toLowerCase().match(EMAIL_REGEX)) {
-      setEmailError('Email is Invalid');
+      setEmailError("Email is Invalid");
       hasError = true;
     }
 
     if (password.length < 8) {
-      setPasswordError('Password must be atleast 8 characters long!');
+      setPasswordError("Password must be atleast 8 characters long!");
       hasError = true;
     }
 
@@ -141,7 +143,7 @@ function SignUpScreen() {
         date_of_birth: `${dob.y}-${dob.m}-${dob.d}`,
         contact,
       });
-      navigate('/signup/success');
+      navigate("/signup/success");
       setDisable(false);
     } catch (err) {
       if (axios.isAxiosError(err)) {
@@ -156,13 +158,13 @@ function SignUpScreen() {
     <Container css={style.wrapper}>
       <Container
         onSubmit={onSubmit}
-        component='form'
+        component="form"
         css={style.container}
-        maxWidth='sm'
+        maxWidth="sm"
       >
         {disable && <Loading />}
         <Container css={style.padder}>
-          <Typography variant='h4' css={style.typography}>
+          <Typography variant="h4" css={style.typography}>
             Registration
           </Typography>
           <Grid container spacing={4}>
@@ -172,10 +174,10 @@ function SignUpScreen() {
                 error={firstNameError !== null}
                 fullWidth
               >
-                <InputLabel htmlFor='first-name'>First Name</InputLabel>
+                <InputLabel htmlFor="first-name">First Name</InputLabel>
                 <Input
-                  aria-describedby='first-name'
-                  type='text'
+                  aria-describedby="first-name"
+                  type="text"
                   value={firstName}
                   onChange={(e) => {
                     setFirstName(e.target.value);
@@ -194,10 +196,10 @@ function SignUpScreen() {
                 error={lastNameError !== null}
                 fullWidth
               >
-                <InputLabel htmlFor='last-name'>Last Name</InputLabel>
+                <InputLabel htmlFor="last-name">Last Name</InputLabel>
                 <Input
-                  aria-describedby='last-name'
-                  type='text'
+                  aria-describedby="last-name"
+                  type="text"
                   value={lastName}
                   onChange={(e) => {
                     setLastName(e.target.value);
@@ -213,13 +215,13 @@ function SignUpScreen() {
           </Grid>
 
           <FormControl css={style.control} error={emailError !== null}>
-            <InputLabel htmlFor='email-ht'>Email address</InputLabel>
+            <InputLabel htmlFor="email-ht">Email address</InputLabel>
             <Input
-              aria-describedby='email-ht'
-              type='email'
+              aria-describedby="email-ht"
+              type="email"
               value={email}
               onChange={(e) => {
-                setEmail(e.target.value.replaceAll(' ', ''));
+                setEmail(e.target.value.replaceAll(" ", ""));
                 setEmailError(null);
               }}
               disabled={disable}
@@ -228,7 +230,7 @@ function SignUpScreen() {
           </FormControl>
 
           <DateInput
-            label='Date Of Birth'
+            label="Date Of Birth"
             value={dob}
             onUpdate={(v) => setDOB(v)}
             disable={disable}
@@ -237,10 +239,10 @@ function SignUpScreen() {
           />
 
           <FormControl css={style.control} error={deviceError !== null}>
-            <InputLabel htmlFor='device'>Brand Of Device</InputLabel>
+            <InputLabel htmlFor="device">Brand Of Device</InputLabel>
             <Input
-              aria-describedby='device'
-              type='text'
+              aria-describedby="device"
+              type="text"
               value={device}
               onChange={(e) => {
                 setDevice(e.target.value);
@@ -251,16 +253,16 @@ function SignUpScreen() {
             <FormHelperText>{deviceError && deviceError}</FormHelperText>
           </FormControl>
           <FormControl css={style.control} error={contactError !== null}>
-            <InputLabel htmlFor='contact'>Contact Number</InputLabel>
+            <InputLabel htmlFor="contact">Contact Number</InputLabel>
             <Input
-              aria-describedby='contact'
-              type='text'
+              aria-describedby="contact"
+              type="text"
               value={contact}
               onChange={(e) => {
                 setContact(e.target.value);
                 setContactError(null);
               }}
-              placeholder='+92 321 1234567'
+              placeholder="+44 123 1234567"
               disabled={disable}
             />
             <FormHelperText>{contactError && contactError}</FormHelperText>
@@ -271,10 +273,10 @@ function SignUpScreen() {
             fullWidth
             error={passwordError !== null}
           >
-            <InputLabel htmlFor='password-ht'>Password</InputLabel>
+            <InputLabel htmlFor="password-ht">Password</InputLabel>
             <Input
-              aria-describedby='password-ht'
-              type='password'
+              aria-describedby="password-ht"
+              type="password"
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
@@ -289,10 +291,10 @@ function SignUpScreen() {
             fullWidth
             error={confirmPasswordError !== null}
           >
-            <InputLabel htmlFor='cpassword-ht'>Confirm Password</InputLabel>
+            <InputLabel htmlFor="cpassword-ht">Confirm Password</InputLabel>
             <Input
-              aria-describedby='cpassword-ht'
-              type='password'
+              aria-describedby="cpassword-ht"
+              type="password"
               value={confirmPassword}
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
@@ -304,12 +306,12 @@ function SignUpScreen() {
               {confirmPasswordError && confirmPasswordError}
             </FormHelperText>
           </FormControl>
-          <Typography variant='subtitle1' css={style.error}>
+          <Typography variant="subtitle1" css={style.error}>
             {error}
           </Typography>
           <SubmitButton>Sign Up</SubmitButton>
           <FormHelperText>
-            Already Have an account? Login in <Link to='/login'>Here</Link>
+            Already Have an account? Login in <Link to="/login">Here</Link>
           </FormHelperText>
         </Container>
       </Container>

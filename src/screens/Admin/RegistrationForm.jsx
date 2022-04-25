@@ -1,20 +1,20 @@
 /* eslint-disable react/react-in-jsx-scope -- Unaware of jsxImportSource */
 /** @jsxImportSource @emotion/react */
-import React, { useEffect, useState } from 'react';
-import { css } from '@emotion/react';
-import { useParams, useNavigate } from 'react-router-dom';
-import Paper from '@mui/material/Paper';
-import CircularProgress from '@mui/material/CircularProgress';
-import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
-import Grid from '@mui/material/Grid';
-import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel';
-import Typography from '@mui/material/Typography';
+import React, { useEffect, useState } from "react";
+import { css } from "@emotion/react";
+import { useParams, useNavigate } from "react-router-dom";
+import Paper from "@mui/material/Paper";
+import CircularProgress from "@mui/material/CircularProgress";
+import FormControl from "@mui/material/FormControl";
+import FormHelperText from "@mui/material/FormHelperText";
+import Grid from "@mui/material/Grid";
+import Input from "@mui/material/Input";
+import InputLabel from "@mui/material/InputLabel";
+import Typography from "@mui/material/Typography";
 
-import { useRegistrations } from '../../hooks/Admin/useRegistrations';
-import SubmitButton from '../../layout/generic/SubmitButton';
-import DateInput from '../../components/DateInput';
+import { useRegistrations } from "../../hooks/Admin/useRegistrations";
+import SubmitButton from "../../layout/generic/SubmitButton";
+import DateInput from "../../components/DateInput";
 
 const style = {
   padder: css`
@@ -31,28 +31,29 @@ const style = {
     font-size: 12px;
     margin-left: 8px;
     color: rgba(0, 0, 0, 0.6);
-    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   `,
 };
 
 function RegistrationFormScreen() {
   const { id } = useParams();
-  const [firstName, setFirstName] = React.useState('');
-  const [lastName, setLastName] = React.useState('');
-  const [device, setDevice] = React.useState('');
-  const [wage, setWage] = React.useState('');
-  const [contact, setContact] = React.useState('');
-  const [joining, setJoining] = useState({ d: '', m: '', y: '' });
-  const [dob, setDOB] = useState({ d: '', m: '', y: '' });
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [device, setDevice] = useState("");
+  const [wage, setWage] = useState("");
+  const [contact, setContact] = useState("");
+  const [joining, setJoining] = useState({ d: "", m: "", y: "" });
+  const [dob, setDOB] = useState({ d: "", m: "", y: "" });
+  const [ip, setIp] = useState("");
 
-  const [firstNameError, setFirstNameError] = React.useState(null);
-  const [lastNameError, setLastNameError] = React.useState(null);
-  const [deviceError, setDeviceError] = React.useState(null);
-  const [wageError, setWageError] = React.useState(null);
-  const [contactError, setContactError] = React.useState(null);
-  const [joiningError, setJoiningError] = React.useState(null);
-  const [dobError, setDOBError] = React.useState(null);
-  const [disable, setDisable] = React.useState(false);
+  const [firstNameError, setFirstNameError] = useState(null);
+  const [lastNameError, setLastNameError] = useState(null);
+  const [deviceError, setDeviceError] = useState(null);
+  const [wageError, setWageError] = useState(null);
+  const [contactError, setContactError] = useState(null);
+  const [joiningError, setJoiningError] = useState(null);
+  const [dobError, setDOBError] = useState(null);
+  const [disable, setDisable] = useState(false);
 
   const navigate = useNavigate();
   const {
@@ -66,11 +67,12 @@ function RegistrationFormScreen() {
       setFirstName(reg.first_name);
       setLastName(reg.last_name);
       setDevice(reg.brand_of_device);
-      const jd = reg.applied.split('-');
-      const dd = reg.date_of_birth.split('-');
+      const jd = reg.applied.split("-");
+      const dd = reg.date_of_birth.split("-");
       setJoining({ d: jd[2], m: jd[1], y: jd[0] });
       setDOB({ d: dd[2], m: dd[1], y: dd[0] });
       setContact(reg.contact);
+      setIp(reg.ip);
     }
   }, [reg]);
 
@@ -89,19 +91,19 @@ function RegistrationFormScreen() {
     );
   return (
     <Paper
-      component='form'
+      component="form"
       onSubmit={async (e) => {
         e.preventDefault();
         let hasError = false;
-        if (!firstName) setFirstNameError('First Name is Required');
-        if (!lastName) setLastNameError('Last Name is Required');
-        if (!device) setDeviceError('Brand Of Device is Required');
-        if (!wage) setWageError('Wage Per Hour is Required');
-        if (!contact) setContactError('Contact Number is Required');
+        if (!firstName) setFirstNameError("First Name is Required");
+        if (!lastName) setLastNameError("Last Name is Required");
+        if (!device) setDeviceError("Brand Of Device is Required");
+        if (!wage) setWageError("Wage Per Hour is Required");
+        if (!contact) setContactError("Contact Number is Required");
         if (!joining.d || !joining.m || !joining.y)
-          setJoiningError('Joining Date is required!');
+          setJoiningError("Joining Date is required!");
         if (!dob.d || !dob.m || !dob.y)
-          setDOBError('Date Of Birth is required!');
+          setDOBError("Date Of Birth is required!");
         if (
           !firstName ||
           !lastName ||
@@ -130,14 +132,14 @@ function RegistrationFormScreen() {
             joining_date: `${joining.y}-${joining.m}-${joining.d}`,
             user: reg.user,
           });
-          navigate('/registrations/');
+          navigate("/registrations/");
         } catch (err) {
           console.log(err);
         }
       }}
       css={style.padder}
     >
-      <Typography variant='h5' css={style.typography}>
+      <Typography variant="h5" css={style.typography}>
         Confirm And Input Employee Data
       </Typography>
       <Grid container spacing={4}>
@@ -147,10 +149,10 @@ function RegistrationFormScreen() {
             error={firstNameError !== null}
             fullWidth
           >
-            <InputLabel htmlFor='first-name'>First Name</InputLabel>
+            <InputLabel htmlFor="first-name">First Name</InputLabel>
             <Input
-              aria-describedby='first-name'
-              type='text'
+              aria-describedby="first-name"
+              type="text"
               value={firstName}
               onChange={(e) => {
                 setFirstName(e.target.value);
@@ -167,10 +169,10 @@ function RegistrationFormScreen() {
             error={lastNameError !== null}
             fullWidth
           >
-            <InputLabel htmlFor='last-name'>Last Name</InputLabel>
+            <InputLabel htmlFor="last-name">Last Name</InputLabel>
             <Input
-              aria-describedby='last-name'
-              type='text'
+              aria-describedby="last-name"
+              type="text"
               value={lastName}
               onChange={(e) => {
                 setLastName(e.target.value);
@@ -183,10 +185,10 @@ function RegistrationFormScreen() {
         </Grid>
       </Grid>
       <FormControl css={style.control} error={deviceError !== null} fullWidth>
-        <InputLabel htmlFor='device'>Brand Of Device</InputLabel>
+        <InputLabel htmlFor="device">Brand Of Device</InputLabel>
         <Input
-          aria-describedby='device'
-          type='text'
+          aria-describedby="device"
+          type="text"
           value={device}
           onChange={(e) => {
             setDevice(e.target.value);
@@ -197,7 +199,7 @@ function RegistrationFormScreen() {
         <FormHelperText>{deviceError && deviceError}</FormHelperText>
       </FormControl>
       <DateInput
-        label='Date Of Birth'
+        label="Date Of Birth"
         value={dob}
         onUpdate={(v) => setDOB(v)}
         disable={disable}
@@ -205,7 +207,7 @@ function RegistrationFormScreen() {
         onError={(err) => setDOBError(err)}
       />
       <DateInput
-        label='Joining Date'
+        label="Joining Date"
         value={joining}
         onUpdate={(v) => setJoining(v)}
         disable={disable}
@@ -214,28 +216,28 @@ function RegistrationFormScreen() {
       />
 
       <FormControl css={style.control} error={contactError !== null} fullWidth>
-        <InputLabel htmlFor='contact'>Contact Number</InputLabel>
+        <InputLabel htmlFor="contact">Contact Number</InputLabel>
         <Input
-          aria-describedby='contact'
-          type='text'
+          aria-describedby="contact"
+          type="text"
           value={contact}
           onChange={(e) => {
-            setContact(e.target.value.replace(/[^0-9-+\s]+/i, ''));
+            setContact(e.target.value.replace(/[^0-9-+\s]+/i, ""));
             setContactError(null);
           }}
-          placeholder='+92 321 1234567'
+          placeholder="+44 321 1234567"
           disabled={disable}
         />
         <FormHelperText>{contactError && contactError}</FormHelperText>
       </FormControl>
       <FormControl css={style.control} error={wageError !== null} fullWidth>
-        <InputLabel htmlFor='wage'>Wage Per Hour</InputLabel>
+        <InputLabel htmlFor="wage">Wage Per Hour</InputLabel>
         <Input
-          aria-describedby='wage'
-          type='text'
+          aria-describedby="wage"
+          type="text"
           value={wage}
           onChange={(e) => {
-            setWage(e.target.value.replace(/[^0-9,.]+/i, ''));
+            setWage(e.target.value.replace(/[^0-9,.]+/i, ""));
             setWageError(null);
           }}
           disabled={disable}
