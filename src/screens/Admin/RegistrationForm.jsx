@@ -44,7 +44,6 @@ function RegistrationFormScreen() {
   const [contact, setContact] = useState("");
   const [joining, setJoining] = useState({ d: "", m: "", y: "" });
   const [dob, setDOB] = useState({ d: "", m: "", y: "" });
-  const [ip, setIp] = useState("");
 
   const [firstNameError, setFirstNameError] = useState(null);
   const [lastNameError, setLastNameError] = useState(null);
@@ -72,7 +71,6 @@ function RegistrationFormScreen() {
       setJoining({ d: jd[2], m: jd[1], y: jd[0] });
       setDOB({ d: dd[2], m: dd[1], y: dd[0] });
       setContact(reg.contact);
-      setIp(reg.ip);
     }
   }, [reg]);
 
